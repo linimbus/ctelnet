@@ -1,0 +1,15 @@
+
+CC=gcc
+
+CFLAGS=-O2 -Wall
+
+OBJC=$(patsubst %.c,%.o,$(wildcard *.c))
+TARGET_FILE=CTelnet
+
+$(TARGET_FILE):$(OBJC)
+	$(CC) $(CFLAGS) -o $(TARGET_FILE) $(OBJC) -lpthread -lcurses -rdynamic
+$(OBJC):%.o:%.c
+	$(CC) $(CFLAGS) -c $< -o $@  -DOS=LINUX
+clean:
+	rm -rf *.o
+	rm -rf $(TARGET_FILE)

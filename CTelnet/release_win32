@@ -1,0 +1,16 @@
+
+CC=gcc
+
+CFLAGS=-O2 -Wall
+
+LIB=wsock32
+OBJC=$(patsubst %.c,%.o,$(wildcard *.c))
+TARGET_FILE=CTelnet
+
+$(TARGET_FILE):$(OBJC)
+	$(CC) $(CFLAGS) -o $(TARGET_FILE) $(OBJC) -l$(LIB)
+$(OBJC):%.o:%.c
+	$(CC) $(CFLAGS) -c $< -o $@  -DOS=WIN32
+clean:
+	del /q /s *.o
+	del /q /s $(TARGET_FILE).exe
